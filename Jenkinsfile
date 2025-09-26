@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/mihirh19/docker_jenkins_pipeline']])
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/22ituos156-netizen/dockerpipeline2']])
       }
     }
 
@@ -11,9 +11,9 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker build -t mihir2109/dockerpipeline .'
+            sh 'docker build -t krishg112/dockerpipeline .'
           } else {
-            bat 'docker build -t mihir2109/dockerpipeline .'
+            bat 'docker build -t krishg112/dockerpipeline .'
           }
         }
 
@@ -26,11 +26,11 @@ pipeline {
           script {
             if (isUnix()) {
               sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-              sh 'docker push mihir2109/dockerpipeline'
+              sh 'docker push krishg112/dockerpipeline'
               sh 'docker logout'
             } else {
               bat 'docker login -u %DOCKERHUB_USERNAME% -p %DOCKERHUB_PASSWORD%'
-              bat 'docker push mihir2109/dockerpipeline'
+              bat 'docker push krishg112/dockerpipeline'
               bat 'docker logout'
             }
           }
