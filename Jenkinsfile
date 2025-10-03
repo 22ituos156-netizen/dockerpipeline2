@@ -10,8 +10,12 @@ pipeline {
 
         stage('Build Placeholder') {
             steps {
+              script{
+                error("Docker Image failed")
+              }
+        
                 // The 'docker build' command has been removed and replaced with this message.
-                echo 'This is where the Docker image would be built.'
+                //echo 'This is where the Docker image would be built.'
             }
         }
 
