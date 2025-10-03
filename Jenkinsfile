@@ -1,44 +1,25 @@
 pipeline {
-  agent any
-  stages {
-    stage('checkout') {
-      steps {
-        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/22ituos156-netizen/dockerpipeline2']])
-      }
-    }
-
-    stage('Build Image') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'docker build -t krishg112/dockerpipeline .'
-          } else {
-            bat 'docker build -t krishg112/dockerpipeline .'
-          }
-        }
-
-      }
-    }
-
-    stage('Docker Push') {
-      steps {
-        withCredentials(bindings: [usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-          script {
-            if (isUnix()) {
-              sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-              sh 'docker push krishg112/dockerpipeline'
-              sh 'docker logout'
-            } else {
-              bat 'docker login -u %DOCKERHUB_USERNAME% -p %DOCKERHUB_PASSWORD%'
-              bat 'docker push krishg112/dockerpipeline'
-              bat 'docker logout'
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // This stage remains the same to get the source code
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/22ituos156-netizen/dockerpipeline2']])
             }
-          }
-
         }
 
-      }
-    }
+        stage('Build Placeholder') {
+            steps {
+                // The 'docker build' command has been removed and replaced with this message.
+                echo 'This is where the Docker image would be built.'
+            }
+        }
 
-  }
+        stage('Push Placeholder') {
+            steps {
+                // The 'withCredentials' block, 'docker login', and 'docker push' have been removed.
+                echo 'This is where the Docker image would be pushed to a registry.'
+            }
+        }
+    }
 }
